@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#10243a">
+<title>Conversation Handoff Guide — Continue Where You Left Off</title>
+<style>
+:root{--navy:#10243a;--blue:#2878b8;--cyan:#55c3d8;--ink:#203044;--muted:#65758a;--paper:#f4f7fb;--line:#e1e8f0;--green:#18865d;--amber:#bd7a19;--shadow:0 16px 45px rgba(16,36,58,.09)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,"Segoe UI",Arial,sans-serif;line-height:1.7}
+.hero{background:radial-gradient(circle at 12% 20%,#28658a 0,transparent 30%),linear-gradient(125deg,#0c1d30,#173e5b 70%,#17677a);color:white;padding:58px 22px 76px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:360px;height:360px;border:1px solid #ffffff20;border-radius:50%;right:-100px;bottom:-230px;box-shadow:0 0 0 35px #ffffff08,0 0 0 75px #ffffff06}
+.wrap{width:min(1060px,calc(100% - 36px));margin:auto}.eyebrow{color:#9ee5ef;font-size:.83rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}.hero h1{font-size:clamp(2rem,5vw,3.3rem);line-height:1.2;margin:12px 0}.hero p{max-width:720px;color:#d7e6f1;font-size:1.08rem;margin:0}.hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}.pill{border:1px solid #ffffff38;background:#ffffff12;padding:6px 13px;border-radius:30px;font-size:.84rem}
+main{margin-top:-32px;position:relative}.intro{background:white;border:1px solid var(--line);border-radius:18px;padding:22px 26px;box-shadow:var(--shadow);display:flex;gap:18px;align-items:flex-start}.intro-icon{width:44px;height:44px;flex:none;border-radius:13px;background:#e7f5f8;color:#14718a;display:grid;place-items:center;font-size:1.35rem}.intro p{margin:0;color:#536478}
+.section{margin:34px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:14px;margin-bottom:16px}.section-head h2{font-size:1.45rem;margin:0;color:var(--navy)}.section-head p{margin:3px 0 0;color:var(--muted);font-size:.93rem}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;background:#e9eff5;padding:6px;border-radius:14px;margin:18px 0 14px}.tab{border:0;background:transparent;color:#526579;padding:10px 16px;border-radius:10px;font:inherit;font-weight:700;cursor:pointer;transition:.2s}.tab[aria-selected="true"]{background:white;color:var(--navy);box-shadow:0 3px 12px #1a385414}
+.panel{display:none}.panel.active{display:block;animation:fade .25s ease}@keyframes fade{from{opacity:.4;transform:translateY(5px)}to{opacity:1;transform:none}}
+.card{background:white;border:1px solid var(--line);border-radius:17px;padding:22px;box-shadow:0 5px 20px #10243a08}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:560px}th{background:#f1f5f9;color:#40546a;font-size:.88rem;text-align:left}th,td{padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:middle}tr:last-child td{border-bottom:0}td:first-child{font-weight:650}code,.cmd{font-family:Consolas,monospace;direction:ltr;unicode-bidi:embed;background:#edf3f8;color:#174d70;border-radius:6px;padding:3px 7px;font-size:.9em;white-space:nowrap}.mode{font-size:.78rem;padding:3px 9px;border-radius:20px;font-weight:700}.create{background:#e5f4ec;color:#16734e}.finalize{background:#fff1dc;color:#96600d}.update{background:#e6effa;color:#245d96}
+.callout{border-left:4px solid var(--cyan);background:#edf8fa;padding:13px 16px;border-radius:9px;margin-top:16px;color:#315367}.callout strong{color:#145a72}.list{display:grid;gap:12px;margin:0;padding:0;list-style:none}.step{display:flex;gap:14px;align-items:flex-start}.num{width:30px;height:30px;flex:none;border-radius:9px;background:#e9f2f8;color:#1e6794;display:grid;place-items:center;font-weight:800}.step p{margin:0}.step strong{color:var(--navy)}
+.command-list{display:grid;gap:10px}.command{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 15px;border:1px solid var(--line);border-radius:12px;background:#fbfcfe}.command span{font-weight:650}.copy{border:1px solid #cbd9e5;background:white;color:#205d83;border-radius:8px;padding:7px 12px;font:inherit;font-size:.84rem;font-weight:700;cursor:pointer;white-space:nowrap}.copy:hover{background:#edf6fb}.copy.copied{background:#e5f4ec;color:#16734e;border-color:#b8dfc9}
+.note{font-size:.91rem;color:var(--muted);margin:12px 0 0}.example{background:#12283e;color:#e8f2fa;border-radius:16px;padding:20px;overflow:hidden}.example pre{margin:0;white-space:pre-wrap;direction:ltr;text-align:left;font:.92rem/2 Consolas,monospace;color:#e8f2fa}.example .tag{color:#80d7e4;font-weight:700}.example-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;color:#9fdbe5;font-weight:700}.review-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.review{border:1px solid var(--line);border-radius:12px;padding:15px;background:#fff}.review .issue{color:#a36813;font-size:.8rem;font-weight:800}.review p{margin:5px 0 10px}.review .cmd{display:inline-block;white-space:normal;line-height:1.8}
+.progress{height:5px;background:#e4ebf2;border-radius:8px;overflow:hidden;margin-top:18px}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--cyan));transition:width .25s}
+.footer{border-top:1px solid var(--line);margin-top:48px;padding:22px 0 35px;color:var(--muted);font-size:.88rem;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media(max-width:650px){.hero{padding:42px 18px 65px}.wrap{width:min(100% - 26px,1060px)}.intro{padding:17px}.card{padding:16px}.section-head{display:block}.review-grid{grid-template-columns:1fr}.command{align-items:flex-start}.command span{font-size:.92rem}.footer{display:block}}
+@media print{body{background:white}.hero{padding:25px;background:#173e5b!important;print-color-adjust:exact}.tabs,.copy,.progress{display:none!important}.panel{display:block!important;margin-bottom:18px}.card,.intro{box-shadow:none;break-inside:avoid}.section{margin:20px 0}.footer{margin-top:20px}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+ <div class="eyebrow">Interactive Practical Guide</div>
+ <h1>Move Your Conversation.<br>Pick Up Right Where You Left Off.</h1>
+ <p>A practical guide to using the <b>Conversation Handoff</b> skill to create, update, and finalize a handoff file—then continue your work in a new chat without starting over.</p>
+ <div class="hero-meta"><span class="pill">CONVERSATION_HANDOFF.md</span><span class="pill">Create · Update · Finalize</span><span class="pill">Step-by-step + Copy-ready prompts</span></div>
+</div></header>
+<main class="wrap">
+ <div class="intro"><div class="intro-icon">↗</div><p><b>The core idea:</b> A handoff file carries your working context, decisions, and current progress into a new conversation. Create it before the chat becomes too long or difficult to manage.</p></div>
+
+ <section class="section" id="old">
+  <div class="section-head"><div><h2>01 — In the Original Conversation</h2><p>Choose the situation that matches your needs, then use the suggested prompt.</p></div></div>
+  <div class="tabs" role="tablist" aria-label="Handoff modes">
+   <button class="tab" role="tab" aria-selected="true" data-tab="create">Create</button>
+   <button class="tab" role="tab" aria-selected="false" data-tab="finalize">Finalize</button>
+   <button class="tab" role="tab" aria-selected="false" data-tab="update">Update</button>
+  </div>
+  <div class="card">
+   <div class="panel active" id="create"><h3>When moving a conversation for the first time</h3><p>Use this mode to create an initial handoff file summarizing the current context and progress.</p><div class="command"><span>Create a handoff summary</span><button class="copy" data-copy="Create a handoff summary">Copy prompt</button></div></div>
+   <div class="panel" id="finalize"><h3>When the conversation is getting long—or you need a final handoff</h3><p>Ask the assistant to prepare the conversation for transfer and review the file for completeness and quality.</p><div class="command"><span>Prepare this conversation for handoff</span><button class="copy" data-copy="Prepare this conversation for handoff">Copy prompt</button></div></div>
+   <div class="panel" id="update"><h3>When you already have a previous handoff file</h3><p>Attach the previous file or paste its contents, then ask the assistant to merge the latest developments into it rather than creating a separate summary.</p><div class="command"><span>Update the handoff summary</span><button class="copy" data-copy="Update the handoff summary">Copy prompt</button></div></div>
+   <div class="callout"><strong>Default behavior:</strong> If you do not specify a mode, the skill uses Create—or Update if a previous handoff file is available.</div>
+  </div>
+  <div class="card" style="margin-top:14px"><h3 style="margin-top:0">Quick reference: Which prompt should I use?</h3><div class="table-wrap"><table><thead><tr><th>Situation</th><th>What to type</th><th>Mode</th></tr></thead><tbody>
+   <tr><td>Moving the conversation for the first time</td><td><code>Create a handoff summary</code></td><td><span class="mode create">Create</span></td></tr>
+   <tr><td>The conversation is long and may reach its limit</td><td><code>Prepare this conversation for handoff</code></td><td><span class="mode finalize">Finalize</span></td></tr>
+   <tr><td>You have an existing handoff file to continue updating</td><td><code>Update the handoff summary</code></td><td><span class="mode update">Update</span></td></tr>
+   <tr><td>You want a final version with a quality check</td><td><code>Prepare this conversation for handoff</code></td><td><span class="mode finalize">Finalize</span></td></tr>
+  </tbody></table></div></div>
+  <div class="card" style="margin-top:14px"><h3 style="margin-top:0">Other phrases that can trigger the skill</h3><div class="command-list">
+   <div class="command"><span>Handoff</span><button class="copy" data-copy="Handoff">Copy</button></div>
+   <div class="command"><span>Resume point</span><button class="copy" data-copy="Resume point">Copy</button></div>
+   <div class="command"><span>Continue in a new chat</span><button class="copy" data-copy="Continue in a new chat">Copy</button></div>
+   <div class="command"><span>Context handoff</span><button class="copy" data-copy="Context handoff">Copy</button></div>
+  </div><p class="note">Natural-language requests with the same meaning work too—for example: “This conversation is getting too long. Summarize it so I can continue in a new chat.”</p><div class="callout">You can add a specific instruction after the trigger phrase, such as: <b>“Create a handoff summary and focus on the final approved code.”</b></div></div>
+ </section>
+
+ <section class="section" id="new"><div class="section-head"><div><h2>02 — In the New Conversation</h2><p>Attach the handoff file, then choose how you want to resume.</p></div></div>
+  <div class="card"><ol class="list">
+   <li class="step"><span class="num">1</span><p><strong>Attach the file</strong><br>Attach <code>CONVERSATION_HANDOFF.md</code> or paste its full contents into the new conversation.</p></li>
+   <li class="step"><span class="num">2</span><p><strong>Send the appropriate continuation prompt</strong><br>Choose one of the following depending on how you want the assistant to proceed.</p></li>
+  </ol>
+  <div class="command-list" style="margin-top:18px">
+   <div class="command"><span>Normal continuation — Continue from the handoff file.</span><button class="copy" data-copy="Continue from the handoff file.">Copy</button></div>
+   <div class="command"><span>Start the next task — Start with NEXT ACTION and execute the next task.</span><button class="copy" data-copy="Start with NEXT ACTION and execute the next task.">Copy</button></div>
+   <div class="command"><span>Verify understanding — Read the file, summarize where we left off in two lines, then begin.</span><button class="copy" data-copy="Read the file, summarize where we left off in two lines, then begin.">Copy</button></div>
+  </div>
+  <div class="callout"><strong>Why is a short prompt enough?</strong> The handoff file itself contains a standing instruction for the new assistant: read the full context, do not start from scratch, do not reopen approved decisions, and begin with <code>NEXT ACTION</code>.</div>
+  </div>
+ </section>
+
+ <section class="section" id="quality"><div class="section-head"><div><h2>03 — Review the File After It Is Created</h2><p>If you spot missing information or an incorrect detail, request a precise correction.</p></div></div>
+  <div class="review-grid">
+   <div class="review"><div class="issue">Issue: NEXT ACTION is too vague</div><p>Turn it into one clear, actionable task.</p><span class="cmd">Make NEXT ACTION one specific task</span><button class="copy" style="float:right" data-copy="Make NEXT ACTION one specific task">Copy</button></div>
+   <div class="review"><div class="issue">Issue: A decision is marked as approved incorrectly</div><p>Correct its status so it is not presented as final.</p><span class="cmd">I did not approve decision #2. Change its status to Proposed.</span><button class="copy" style="float:right" data-copy="I did not approve decision #2. Change its status to Proposed.">Copy</button></div>
+   <div class="review"><div class="issue">Issue: Approved code or file names are missing</div><p>Include the latest approved code and relevant file names.</p><span class="cmd">Add the latest approved code and file names to Technical Context</span><button class="copy" style="float:right" data-copy="Add the latest approved code and file names to Technical Context">Copy</button></div>
+   <div class="review"><div class="issue">Issue: You want the explanation in English</div><p>Ask the assistant to write the explanation in English.</p><span class="cmd">Write the explanation in English</span><button class="copy" style="float:right" data-copy="Write the explanation in English">Copy</button></div>
+  </div>
+ </section>
+
+ <section class="section" id="example"><div class="section-head"><div><h2>04 — Complete Workflow Example</h2><p>A simple sequence from creating the file to updating it after another work session.</p></div></div>
+  <div class="example"><div class="example-top"><span>Example scenario</span><button class="copy" data-copy="[Original conversation]\nYou: Create a handoff summary\nAssistant: Creates CONVERSATION_HANDOFF.md\n\n[New conversation]\nYou: Attach the file and type: Continue from the handoff file.\nAssistant: Resumes from NEXT ACTION\n\n[After another work session]\nYou: Attach the previous file and type: Update the handoff summary">Copy example</button></div>
+  <pre><span class="tag">[Original conversation]</span>
+You:       Create a handoff summary
+Assistant: Creates CONVERSATION_HANDOFF.md
+
+<span class="tag">[New conversation]</span>
+You:       Attach the file, then type: Continue from the handoff file.
+Assistant: Resumes directly from NEXT ACTION.
+
+<span class="tag">[After another work session]</span>
+You:       Attach the previous file, then type: Update the handoff summary
+Assistant: Merges the latest progress into the handoff file.</pre></div>
+ </section>
+
+ <section class="section"><div class="card"><h2 style="margin-top:0">One final recommendation</h2><p style="font-size:1.05rem;margin-bottom:8px">Do not wait until the conversation becomes unusable or important context is lost. Run the skill as soon as the conversation starts feeling long or difficult to manage, and keep the handoff file somewhere easy to access.</p><div class="progress" aria-label="Reading progress"><span id="progressBar"></span></div><p class="note">Use the Copy buttons to transfer any prompt directly into your conversation.</p></div></section>
+ <footer class="footer"><span>Conversation Handoff Guide</span><span>Responsive layout · Interactive prompts · Print-friendly</span></footer>
+</main>
+<script>
+const tabs=[...document.querySelectorAll('.tab')];
+tabs.forEach(btn=>btn.addEventListener('click',()=>{tabs.forEach(t=>t.setAttribute('aria-selected','false'));document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));btn.setAttribute('aria-selected','true');document.getElementById(btn.dataset.tab).classList.add('active')}));
+document.querySelectorAll('.copy').forEach(btn=>btn.addEventListener('click',async()=>{const value=btn.dataset.copy||btn.parentElement.querySelector('span')?.innerText||'';try{await navigator.clipboard.writeText(value);btn.classList.add('copied');const old=btn.textContent;btn.textContent='Copied ✓';setTimeout(()=>{btn.textContent=old;btn.classList.remove('copied')},1500)}catch(e){const area=document.createElement('textarea');area.value=value;document.body.appendChild(area);area.select();document.execCommand('copy');area.remove();btn.textContent='Copied ✓';setTimeout(()=>btn.textContent='Copy',1500)}}));
+const bar=document.getElementById('progressBar');window.addEventListener('scroll',()=>{const max=document.documentElement.scrollHeight-innerHeight;bar.style.width=(max>0?scrollY/max*100:0)+'%'});
+</script>
+</body></html>
